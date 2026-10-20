@@ -1,0 +1,74 @@
+/* Container do formulário adaptado para PC */ 
+div { 
+  max-width: 600px;         /* Aumenta o tamanho do formulário para telas maiores */
+  width: 100%;              /* Garante que ele seja responsivo em telas menores */
+  margin: 60px auto;        /* Mais espaçamento vertical no PC e centraliza nas laterais */
+  padding: 30px;            /* Espaço interno para o formulário não tocar nas bordas */
+  background-color: #fff;   /* Fundo branco para destacar o formulário */
+  border-radius: 8px;       /* Bordas suavemente arredondadas */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra elegante típica de desktop */
+  font-family: sans-serif; 
+  display: flex; 
+  flex-direction: column; 
+  box-sizing: border-box;
+}
+
+/* Textos acima dos campos */
+label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+  margin-top: 15px;
+}
+
+/* Remove a margem do topo apenas no primeiro item */
+label:first-of-type {
+  margin-top: 0;
+}
+
+/* Estilo padrão de todos os inputs */
+.input-1, .input-2, .input-3 {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Quando você clica para digitar */
+.input-1:focus, .input-2:focus, .input-3:focus {
+  border-color: #0066cc; /* Borda azul discreta */
+  outline: none;
+}
+
+/* Texto dos requisitos da senha */
+p {
+  font-size: 12px;
+  color: #666;
+  margin: 3px 0;
+}
+
+/* Espaçamento antes de começar a lista de requisitos */
+.input-3 + p {
+  margin-top: 10px;
+}
+
+/* Botão Enviar */
+.btn-1 {
+  margin-top: 20px;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  background-color: #0066cc; /* Azul clássico */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Mudança sutil de cor ao passar o mouse no botão */
+.btn-1:hover {
+  background-color: #0052a3;
+}
