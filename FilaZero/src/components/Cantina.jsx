@@ -35,15 +35,15 @@ function hoje() {
 
 // Funcionários liberados para entrar (cadastrados antecipadamente)
 const FUNCIONARIOS = [
-  { usuario: 'samuel22', nome: 'Samuel' },
-  { usuario: 'julio56', nome: 'Julio' },
-  { usuario: 'vinicius17', nome: 'Vinicius' }
+  { usuario: 'samel', nome: 'Samel' },
+  { usuario: 'julio', nome: 'Julio' },
+  { usuario: 'vinicius', nome: 'Vinicius' }
 ];
 
 // Senha geral de todos os funcionários (por enquanto)
 const SENHA_GERAL = '123456';
 
-function Funcionario() {
+function Cantina() {
   // Funcionário que está logado agora (null = ninguém)
   const [funcionarioLogado, setFuncionarioLogado] = useState(null);
 
@@ -74,7 +74,7 @@ function Funcionario() {
     leitor
       .start(
         { facingMode: 'environment' },
-        { fps: 10, qrbox: 220 },
+        { fps: 10, qrbox: 250 },
         (texto) => {
           setLendo(false);
           aoLerQR(texto);
@@ -95,18 +95,24 @@ function Funcionario() {
     };
   }, [lendo]);
 
-  // Depois de ler o QR Code, procura o aluno pelo id que estava dentro dele
+  // Depois de ler o QR Code, usa os dados do aluno que vieram dentro dele.
+  // Assim não precisa procurar no aparelho: o aluno se cadastrou no celular
+  // dele, e o localStorage de um aparelho não aparece em outro.
   function aoLerQR(texto) {
     try {
       const dados = JSON.parse(texto);
-      const aluno = carregarAlunos().find((a) => a.id === dados.id);
 
-      if (aluno) {
-        setAlunoEncontrado(aluno);
-        setMensagem('');
-      } else {
-        setMensagem('Carteirinha não encontrada neste aparelho!');
+      if (!dados.id || !dados.nome) {
+        setMensagem('QR Code inválido!');
+        return;
       }
+
+      setAlunoEncontrado({
+        id: dados.id,
+        nome: dados.nome,
+        email: dados.email || ''
+      });
+      setMensagem('');
     } catch {
       setMensagem('QR Code inválido!');
     }
@@ -130,7 +136,9 @@ function Funcionario() {
     );
 
     if (!aluno) {
-      setMensagem('Carteirinha não encontrada!');
+      setMensagem(
+        'Carteirinha não encontrada neste aparelho! Use a câmera para ler o QR Code.'
+      );
       return;
     }
 
@@ -297,9 +305,11 @@ function Funcionario() {
           <p>
             <strong>Nome:</strong> {alunoEncontrado.nome}
           </p>
-          <p>
-            <strong>E-mail:</strong> {alunoEncontrado.email}
-          </p>
+          {alunoEncontrado.email && (
+            <p>
+              <strong>E-mail:</strong> {alunoEncontrado.email}
+            </p>
+          )}
 
           <button className="btn-2" type="button" onClick={entregarLanche}>
             Entregar lanche
@@ -325,4 +335,4 @@ function Funcionario() {
   );
 }
 
-export default Funcionario;
+export default Cantina;
